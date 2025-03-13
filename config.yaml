@@ -1,0 +1,173 @@
+# Path: config.yaml
+# Description: This file contains the configuration settings for the application.
+
+paths:
+  djvu_path: "C:\\Users\\ramaa\\Documents\\frog5thriver\\atlas.djvu"
+  text_output_from_text_reader: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\text\\from_text_reader"
+  text_output_from_graph_reader: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\text\\from_graph_reader"
+  unified_data_output: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\text\\unified"
+  graph_output: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\graphs"
+  image_output: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\images"
+  log_file: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\logs"
+  temp_output: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\temp"
+  output: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\output"
+  alloy_db: "C:\\Users\\ramaa\\Documents\\frog5thriver\\data\\alloy_db"
+
+djvu_pages_to_read:
+  - 166-273
+  - 304-518
+
+# Alloy Patterns
+#   They start with "SS", "WA", or "LA", followed by a "."
+#   and then a 3-digit number.
+alloy_patterns:
+  - SS.(\d{3})
+  - WA.(\d{3})
+  - LA.(\d{3})
+
+# Property Patterns
+#   They start with an alloy name and end with the word "Source".
+start: "SS.(\\d{3}) or WA.(\\d{3}) or LA.(\\d{3})"
+ends: "Source"
+
+# Weights
+weights:
+  pontoons:
+    yield_strength: 0.2
+    tensile_strength: 0.15
+    corrosion_resistance: 0.25
+    impact_resistance: 0.15
+    flexibility: 0.1
+    durability: 0.15
+  frame:
+    yield_strength: 0.3
+    tensile_strength: 0.2
+    corrosion_resistance: 0.2
+    impact_resistance: 0.1
+    flexibility: 0.1
+    durability: 0.1
+  anchors:
+    yield_strength: 0.35
+    tensile_strength: 0.35
+    corrosion_resistance: 0.2
+    durability: 0.1
+
+# Material Criteria
+material_criteria:
+  yield_strength: true
+  tensile_strength: true
+  density: true
+  corrosion_resistance: true
+  fracture_toughness: true
+
+# Default Thresholds
+default_thresholds:
+  pontoons:
+    yield_strength_min: 150 MPa
+    tensile_strength_min: 200 MPa
+    density_max: 950 kg/m³
+    corrosion_resistance_min: 8
+    impact_resistance_min: 7
+    flexibility_min: 6
+    durability_min: 8
+    fracture_toughness_min: 20 Pa·m^0.5
+  frame:
+    yield_strength_min: 184 MPa
+    tensile_strength_min: 276 MPa
+    density_max: 2700 kg/m³
+    corrosion_resistance_min: 7
+    impact_resistance_min: 6
+    flexibility_min: 5
+    durability_min: 8
+    fracture_toughness_min: 25 Pa·m^0.5
+  anchors:
+    yield_strength_min: 300 MPa
+    tensile_strength_min: 600 MPa
+    density_max: 8000 kg/m³
+    corrosion_resistance_min: 7
+    durability_min: 9
+    fracture_toughness_min: 40 Pa·m^0.5
+
+# Selection Criteria
+selection_criteria:
+  stress_ratio_weight: 0.5
+  density_weight: 0.3
+  corrosion_resistance_weight: 0.2
+
+# Thresholds
+max_stress:
+  frame: 184 MPa
+  pontoons: 150 MPa
+  anchors: 300 MPa
+
+max_displacement:
+  frame: 0.01 m
+  pontoons: 0.015 m
+  anchors: 0.005 m
+
+# Log Settings
+log_settings:
+  log_level: INFO
+
+# Penalties
+penalty_per_trait: 2
+
+# Graph Scaling
+graph_scaling:
+  x_scale: 1000
+  y_scale: 200
+  x_offset: 0
+  y_offset: 0
+
+# Secondary Checks
+secondary_checks:
+  pontoons:
+    yield_strength_min: 150 MPa
+  frame:
+    yield_strength_min: 184 MPa
+  anchors:
+    tensile_strength_min: 600 MPa
+
+# Default Property Values
+default_property_values:
+  yield_strength: 184 MPa
+  tensile_strength: 276 MPa
+  density: 2700 kg/m³
+  corrosion_resistance: 8
+  impact_resistance: 6
+  flexibility: 5
+  durability: 8
+  fracture_toughness: 25 Pa·m^0.5
+
+# Properties to Search For in Images
+properties_to_search_for:
+  mechanical_properties_to_search_for:
+    yield_strength:
+      keywords: ["yield strength", "YS", "0.2% offset yield strength"]
+      units: ["MPa", "ksi"]
+    tensile_strength:
+      keywords: ["tensile strength", "ultimate tensile strength", "UTS"]
+      units: ["MPa", "ksi"]
+    true_tensile_strength:
+      keywords: ["true tensile strength"]
+      units: ["MPa", "ksi"]
+
+  heat_treatment_properties_to_search_for:
+    solution_heat_treatment:
+      keywords: ["solution heat treated", "solution treated"]
+    quenching:
+      keywords: ["quenched", "quenching", "water quenched"]
+    artificial_aging:
+      keywords: ["artificial aging", "artificially aged"]
+
+  stress_strain_curves_to_search_for:
+    monotonic_stress_strain_curves:
+      keywords: ["monotonic stress-strain curve"]
+    cyclic_stress_strain_curves:
+      keywords: ["cyclic stress-strain curve", "stabilized cyclic stress-strain curve"]
+
+  test_conditions_to_search_for:
+    test_direction:
+      keywords: ["test direction", "longitudinal", "transverse"]
+    test_temperature:
+      keywords: ["tested at", "room temperature", "elevated temperature"]
